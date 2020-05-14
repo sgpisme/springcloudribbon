@@ -2,6 +2,8 @@ package com.sgp.ribbonclient.controller;
 
 import com.sgp.ribbonclient.bean.User;
 import com.sgp.ribbonclient.service.IFeignClientService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
+@Retry(name = "retryBackendA")
+@CircuitBreaker(name = "circuitbreakerA")
 public class HelloController {
     @Autowired
     private RestTemplate restTemplate;
